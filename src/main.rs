@@ -23,10 +23,9 @@ fn login_req(login: Form<LoginReq>) -> String {
 }
 
 fn main() {
-    use rocket_contrib::serve;
     rocket::ignite().mount("/", routes![
         login_req,
     ],)
-    .mount("/", serve::StaticFiles::new("static", serve::Options::Index | serve::Options::DotFiles))
+    .mount("/", rocket_contrib::serve::StaticFiles::from("static"))
     .launch();
 }
