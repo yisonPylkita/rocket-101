@@ -13,8 +13,9 @@ struct LoginReq {
     password: String,
 }
 
+use rocket_contrib::json::Json;
 #[post("/login", data = "<login>")]
-fn login_req(login: Form<LoginReq>) -> String {
+fn login(login: Form<LoginReq>) -> Json<> {
     if login.username == "user" && login.password == "123" {
         return "Successfull login".to_string();
     }
@@ -22,9 +23,21 @@ fn login_req(login: Form<LoginReq>) -> String {
     "Login failure".to_string()
 }
 
+#[derive(FromForm)]
+struct SignupReq {
+    username: String,
+    password: String,
+}
+
+#[post("/signup", data = "<signup>")]
+fn signup(signup: Form<SignupReq>) -> String {
+    "Login failure".to_string()
+}
+
 fn main() {
     rocket::ignite().mount("/api", routes![
-        login_req,
+        login,
+        signup,
     ],)
     .mount("/", rocket_contrib::serve::StaticFiles::from("static"))
     .launch();

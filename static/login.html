@@ -1,13 +1,28 @@
-<form action="/api/login" method="post">
+<form action="javascript:login()" method="post" enctype='application/json'>
     <div>
         <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name="username" id="username" xhruired>
     </div>
     <div>
         <label for="password">Password: </label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password" xhruired>
     </div>
     <div>
         <input type="submit" value="Login">
     </div>
   </form>
+
+<script>
+function login(data) {
+    let xhr = new XMLHttpxhr();
+    xhr.open('POST', '/api/login', true);
+    xhr.setxhruestHeader('Content-Type', 'application/json');
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            let res = JSON.parse(xhr.responseText);
+            alert(res.token);
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+</script>
