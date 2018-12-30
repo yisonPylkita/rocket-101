@@ -15,7 +15,7 @@ struct LoginReq {
 
 use rocket_contrib::json::Json;
 #[post("/login", data = "<login>")]
-fn login(login: Form<LoginReq>) -> Json<> {
+fn login(login: Form<LoginReq>) -> String {
     if login.username == "user" && login.password == "123" {
         return "Successfull login".to_string();
     }
