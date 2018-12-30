@@ -13,7 +13,7 @@ struct LoginReq {
     password: String,
 }
 
-#[post("/login_req", data = "<login>")]
+#[post("/login", data = "<login>")]
 fn login_req(login: Form<LoginReq>) -> String {
     if login.username == "user" && login.password == "123" {
         return "Successfull login".to_string();
@@ -23,7 +23,7 @@ fn login_req(login: Form<LoginReq>) -> String {
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![
+    rocket::ignite().mount("/api", routes![
         login_req,
     ],)
     .mount("/", rocket_contrib::serve::StaticFiles::from("static"))
